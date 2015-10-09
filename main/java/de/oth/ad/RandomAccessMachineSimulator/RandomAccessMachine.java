@@ -1,6 +1,5 @@
 package de.oth.ad.RandomAccessMachineSimulator;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -16,16 +15,16 @@ public class RandomAccessMachine {
 	public RandomAccessMachine() {
 		try {
 			parser = new RAMCodeParser(Files.readAllLines(Paths.get(programInputPath)));
+			executer = new RAMExecuter(parser.getValidInstructions());
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
-		executer = new RAMExecuter(parser.getCommands());
 	}
 	
 	public void run() {
 		// Start and manage the execution
-		executer.executeNextCommand();
+		executer.executeNextInstruction();
 	}
 	
 	public static void main(String[] args) {

@@ -6,28 +6,25 @@ import java.util.HashMap;
 class RAMExecuter {
 	
 	// Properties
-	private final String accuAdress = "00";
-	private Double accumulator;
-	/*
-	private String output;
-	*/
-	private int currentCommandIndex;
-	private ArrayList<String> commands;
+	private int currentInstructionIndex;
+	private ArrayList<CommandAdressPair> instructions;
 	private HashMap<String, Double> storage;
 	
-	RAMExecuter(ArrayList<String> commands) {
-		this.commands = commands;
-		currentCommandIndex = 0;
+	RAMExecuter(ArrayList<CommandAdressPair> instructions) {
+		this.instructions = instructions;
+		currentInstructionIndex = 0;
 	}
 	
-	void executeNextCommand() {
-		for (String command : commands) {
-			System.out.println(command);
-		}
+	/*
+	 * TODO: Muss erkennen, was zu tun ist (Switch) und dann ausführen.
+	 * TODO: Storage-Dumb am Ausführungsende ausgeben
+	 */
+	void executeNextInstruction() {
+		
 	}
 	
 	boolean isRunning() {
-		return !(currentCommandIndex == commands.size());
+		return !(currentInstructionIndex == instructions.size());
 	}
 
 }
