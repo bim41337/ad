@@ -1,0 +1,5 @@
+08E4 # Input value to e4
+05E4 # Load e4 to accu
+01E4 # Add value at e4
+0304 # Multiply by value at 04
+0900 # Output accu value
