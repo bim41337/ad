@@ -6,8 +6,8 @@ import java.util.List;
 class RAMCodeParser {
 	
 	// Properties
-	private final int validInstructionLength = 4;
-	private final int validCommandLength = 2;
+	private final int VALID_INSTRUCTION_LENGTH = 4;
+	private final int VALID_COMMAND_LENGTH = 2;
 	private List<String> initialCode;
 	private ArrayList<String> instructions;
 	private ArrayList<CommandAdressPair> validInstructions;
@@ -22,14 +22,20 @@ class RAMCodeParser {
 	}
 	
 	private void cleanInitialCode() throws InvalidCodeException {
+		int lineIndex;
 		for (String line : initialCode) {
+			lineIndex = initialCode.indexOf(line);
 			// Remove possible comments
-			if (line.indexOf(" #") > 0) {
+			if (line.indexOf(" #") >= 0) {
+				if (line.indexOf(" #") == 0) {
+					// Whole line is a comment
+					continue;
+				}
 				line = line.substring(0, line.indexOf(" #"));
 			}
 			line = line.trim(); // Remove newline character
-			if (line.length() != validInstructionLength) {
-				throw new InvalidCodeException("Malformed code detected");
+			if (line.length() != VALID_INSTRUCTION_LENGTH) {
+				throw new InvalidCodeException("Malformed code detected at line " + (lineIndex + 1));
 			}
 			instructions.add(line.toUpperCase());
 		}
@@ -39,12 +45,15 @@ class RAMCodeParser {
 		boolean matchingValueFound;
 		String instruction, command, address;
 		for (int i = 0; i < instructions.size(); i++) {
+			// Extract information from instruction
 			instruction = instructions.get(i);
-			command = instruction.substring(0, validCommandLength);
-			address = instruction.substring(validCommandLength, instruction.length());
+			command = instruction.substring(0, VALID_COMMAND_LENGTH);
+			address = instruction.substring(VALID_COMMAND_LENGTH, instruction.length());
 			matchingValueFound = false;
+			// Check for matching command value
 			for (Command cmd : Command.values()) {
 				if (cmd.getCommandValue().equals(command)) {
+					// Command is valid, add to instruction stash
 					validInstructions.add(new CommandAdressPair(cmd, address));
 					matchingValueFound = true;
 					break;

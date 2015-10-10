@@ -17,14 +17,18 @@ public class RandomAccessMachine {
 			parser = new RAMCodeParser(Files.readAllLines(Paths.get(programInputPath)));
 			executer = new RAMExecuter(parser.getValidInstructions());
 		} catch(Exception e) {
+			System.out.println(e.getClass().getSimpleName() + " caught:");
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
 	}
 	
 	public void run() {
-		// Start and manage the execution
-		executer.executeNextInstruction();
+		while (executer.isRunning()) {
+			executer.executeNextInstruction();
+		}
+		executer.printStorageDumb();
+		System.out.println("Machine execution finished");
 	}
 	
 	public static void main(String[] args) {

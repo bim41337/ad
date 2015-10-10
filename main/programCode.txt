@@ -1,5 +1,15 @@
-08E4 # Input value to e4
-05E4 # Load e4 to accu
-01E4 # Add value at e4
-0304 # Multiply by value at 04
-0900 # Output accu value
+060B # B in akku
+0900 # akku ausgeben
+0810
+0110 # +16
+0802
+0202 # -2 (25)
+0805
+0405 # / 5 (5)
+0804
+0304 # * 4 (20)
+08F1 # Input nach F1
+07AA # akku nach AA
+05F1 # f1 nach akku
+0900 # akku ausgeben
+0A12
