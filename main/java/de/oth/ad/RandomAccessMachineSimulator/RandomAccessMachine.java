@@ -28,7 +28,9 @@ public class RandomAccessMachine {
 		while (executer.isRunning()) {
 			executer.executeNextInstruction();
 		}
-		executer.printStorageDumb();
+		if (trackExecution) {
+			executer.printStorageDumb();
+		}
 		System.out.println("Machine execution finished");
 	}
 	
@@ -38,7 +40,8 @@ public class RandomAccessMachine {
 	
 	public static void main(String[] args) {
 		RandomAccessMachine ram = new RandomAccessMachine();
-		ram.run(true);
+		// Set parameter to true to get tracking information printed to console
+		ram.run(false);
 	}
 	
 }

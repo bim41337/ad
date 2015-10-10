@@ -1,17 +1,24 @@
-0603 # B in akku
-0722 # akku nach 22
-0900 # akku ausgeben
-0800 # input in akku
-1022 # jump wenn akku größer 0
-0110 # +16
-0802
-0202 # -2 (25)
-0805
-0405 # / 5 (5)
-0804
-0304 # * 4 (20)
-08F1 # Input nach F1
-07AA # akku nach AA
-05F1 # f1 nach akku
-0900 # akku ausgeben
-0A12
+0617 # LDK 17 - Lade 17 in Akku 
+0727 # STA 27 - Schreibe Akku nach 27 - Zeilennummer für End-Sprung (23)
+060C # LDK 0C - Schreibe 0C nach Akku
+0731 # STA 31 - Schreibe Akku nach 31 - Zeilennummer für Start-Sprung (12)
+0600 # LDK 00 - Lade 0 in Akku
+0717 # STA 17 - Schreibe Akku nach 17 - Laufvariable i  ist initialisiert
+0600 # LDK 00 - Lade 0 in Akku
+0721 # STA 21 - Schreibe Akku nach 21 - Summenvariable sum ist initialisiert
+0601 # LDA 01 - Lade 1 in Akku
+0723 # STA 23 - Schreibe Akku nach 23 - Inkrementierer ist initialisiert
+0813 # INP 13 - Eingabe von n nach 13
+0513 # LDA 13 - Lade n in Akku
+0217 # SUB 17 - Prüfe ob Laufvariable i schon Obergrenze n erreicht hat
+0E27 # JMP 27 - Falls ja -> Sprung zur Ausgabe (End-Sprung)
+0517 # LDA 17 - Lade i in Akku
+0317 # MUL 17 - Multipliziere mit i
+0121 # ADD 21 - Addiere die bisherige Summe zum Akku
+0721 # STA 21 - Schreibe neue Summe nach sum
+0517 # LDA 17 - Lade i in Akku
+0123 # ADD 23 - Inkrementiere i
+0717 # STA 17 - Schreibe erhöhtes i zurück
+0B31 # JMP 31 - Sprung zum Schleifenanfang (Start-Sprung)
+0921 # OUT 21 - Ausgabe der Gesamtsumme - Ende
+0A99 # HLT 99

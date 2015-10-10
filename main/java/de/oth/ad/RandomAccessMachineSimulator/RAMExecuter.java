@@ -74,7 +74,7 @@ class RAMExecuter {
 				ramJlz(currentAddressParameter);
 				break;
 			case JLE:
-				ramJlz(currentAddressParameter);
+				ramJle(currentAddressParameter);
 				break;
 			case JGZ:
 				ramJgz(currentAddressParameter);
