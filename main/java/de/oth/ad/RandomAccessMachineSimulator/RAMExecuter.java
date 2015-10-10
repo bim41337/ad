@@ -11,6 +11,7 @@ class RAMExecuter {
 	// Properties
 	private final String ACCUMULATOR_KEY = "00";
 	private int currentInstructionIndex;
+	private boolean trackExecution;
 	private ArrayList<CommandAdressPair> instructions;
 	private HashMap<String, Double> storage;
 	
@@ -19,48 +20,71 @@ class RAMExecuter {
 		storage = new HashMap<String, Double>();
 		setAccuValue(0.0);
 		currentInstructionIndex = 0;
+		trackExecution = false;
 	}
 	
-	/*
-	 * TODO: Muss erkennen, was zu tun ist (Switch) und dann ausführen.
-	 * TODO: Storage-Dumb am Ausführungsende ausgeben
-	 */
 	void executeNextInstruction() {
 		CommandAdressPair currentInstruction = instructions.get(currentInstructionIndex);
 		Command currentCommand = currentInstruction.getCommand();
-		String currentAddressParamter = currentInstruction.getAddress();
+		String currentAddressParameter = currentInstruction.getAddress();
+		if (trackExecution) {
+			printInstructionTrack(currentInstruction);
+		}
 		switch (currentCommand) {
 			case ADD:
-				ramAdd(currentAddressParamter);
+				ramAdd(currentAddressParameter);
 				break;
 			case SUB:
-				ramSub(currentAddressParamter);
+				ramSub(currentAddressParameter);
 				break;
 			case MUL:
-				ramMul(currentAddressParamter);
+				ramMul(currentAddressParameter);
 				break;
 			case DIV:
-				ramDiv(currentAddressParamter);
+				ramDiv(currentAddressParameter);
 				break;
 			case LDA:
-				ramLda(currentAddressParamter);
+				ramLda(currentAddressParameter);
 				break;
 			case LDK:
-				ramLdk(currentAddressParamter);
+				ramLdk(currentAddressParameter);
 				break;
 			case STA:
-				ramSta(currentAddressParamter);
+				ramSta(currentAddressParameter);
 				break;
 			case INP:
-				ramInp(currentAddressParamter);
+				ramInp(currentAddressParameter);
 				break;
 			case OUT:
-				ramOut(currentAddressParamter);
+				ramOut(currentAddressParameter);
 				break;
 			case HLT:
-				ramHlt(currentAddressParamter);
+				ramHlt(currentAddressParameter);
 				break;
-				
+			case JMP:
+				ramJmp(currentAddressParameter);
+				break;
+			case JEZ:
+				ramJez(currentAddressParameter);
+				break;
+			case JNE:
+				ramJne(currentAddressParameter);
+				break;
+			case JLZ:
+				ramJlz(currentAddressParameter);
+				break;
+			case JLE:
+				ramJlz(currentAddressParameter);
+				break;
+			case JGZ:
+				ramJgz(currentAddressParameter);
+				break;
+			case JGE:
+				ramJge(currentAddressParameter);
+				break;
+			default:
+				// Null statement (or command)
+				break;
 		}
 		currentInstructionIndex++;
 	}
@@ -136,7 +160,52 @@ class RAMExecuter {
 	}
 	
 	// Ram execution jump methods
+	private void ramJmp(String address) {
+		// Line number at address - 1
+		Integer instructionIndex = getStorageEntryValue(address).intValue() - 1;
+		if (instructionIndex < 0 || instructionIndex >= instructions.size()) {
+			// Index is out of bounds
+			throw new IndexOutOfBoundsException("Jump to line " + (instructionIndex + 1) + " out of bounds");
+		}
+		// Next command will increment currentInstructionIndex, thus the -1
+		currentInstructionIndex = instructionIndex - 1;
+	}
 	
+	private void ramJez(String address) {
+		if (Double.compare(getAccuValue(), 0.0) == 0) {
+			ramJmp(address);
+		}
+	}
+	
+	private void ramJne(String address) {
+		if (Double.compare(getAccuValue(), 0.0) != 0) {
+			ramJmp(address);
+		}
+	}
+	
+	private void ramJlz(String address) {
+		if (Double.compare(getAccuValue(), 0.0) < 0) {
+			ramJmp(address);
+		}
+	}
+	
+	private void ramJle(String address) {
+		if (Double.compare(getAccuValue(), 0.0) <= 0) {
+			ramJmp(address);
+		}
+	}
+	
+	private void ramJgz(String address) {
+		if (Double.compare(getAccuValue(), 0.0) > 0) {
+			ramJmp(address);
+		}
+	}
+	
+	private void ramJge(String address) {
+		if (Double.compare(getAccuValue(), 0.0) >= 0) {
+			ramJmp(address);
+		}
+	}
 	
 	// RAM execution support methods
 	private Double getStorageEntryValue(String address) {
@@ -171,6 +240,15 @@ class RAMExecuter {
 	
 	private void setAccuValue(Double val) {
 		storage.put(ACCUMULATOR_KEY, val);
+	}
+	
+	// Supporting methods
+	private void printInstructionTrack(CommandAdressPair instr) {
+		System.out.println((currentInstructionIndex + 1) + ": (" + instr.getCommand() + ", " + instr.getAddress() + ")");
+	}
+	
+	void setExecutionTracking(boolean val) {
+		trackExecution = val;
 	}
 
 }

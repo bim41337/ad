@@ -1,6 +1,8 @@
-060B # B in akku
+0603 # B in akku
+0722 # akku nach 22
 0900 # akku ausgeben
-0810
+0800 # input in akku
+1022 # jump wenn akku größer 0
 0110 # +16
 0802
 0202 # -2 (25)

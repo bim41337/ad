@@ -8,6 +8,7 @@ class RAMCodeParser {
 	// Properties
 	private final int VALID_INSTRUCTION_LENGTH = 4;
 	private final int VALID_COMMAND_LENGTH = 2;
+	private final String NULL_INSTRUCTION = "--00";
 	private List<String> initialCode;
 	private ArrayList<String> instructions;
 	private ArrayList<CommandAdressPair> validInstructions;
@@ -29,6 +30,7 @@ class RAMCodeParser {
 			if (line.indexOf(" #") >= 0) {
 				if (line.indexOf(" #") == 0) {
 					// Whole line is a comment
+					instructions.add(NULL_INSTRUCTION);
 					continue;
 				}
 				line = line.substring(0, line.indexOf(" #"));

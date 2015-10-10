@@ -23,7 +23,8 @@ public class RandomAccessMachine {
 		}
 	}
 	
-	public void run() {
+	public void run(boolean trackExecution) {
+		executer.setExecutionTracking(trackExecution);
 		while (executer.isRunning()) {
 			executer.executeNextInstruction();
 		}
@@ -31,9 +32,13 @@ public class RandomAccessMachine {
 		System.out.println("Machine execution finished");
 	}
 	
+	public void run() {
+		run(false);
+	}
+	
 	public static void main(String[] args) {
 		RandomAccessMachine ram = new RandomAccessMachine();
-		ram.run();
+		ram.run(true);
 	}
 	
 }
