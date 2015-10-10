@@ -3,7 +3,7 @@
 060C # LDK 0C - Schreibe 0C nach Akku
 0731 # STA 31 - Schreibe Akku nach 31 - Zeilennummer für Start-Sprung (12)
 0600 # LDK 00 - Lade 0 in Akku
-0717 # STA 17 - Schreibe Akku nach 17 - Laufvariable i  ist initialisiert
+0717 # STA 17 - Schreibe Akku nach 17 - Laufvariable i ist initialisiert
 0600 # LDK 00 - Lade 0 in Akku
 0721 # STA 21 - Schreibe Akku nach 21 - Summenvariable sum ist initialisiert
 0601 # LDA 01 - Lade 1 in Akku
